@@ -10,6 +10,8 @@
                  [ring "1.7.0"]
                  [aleph "0.4.6"]]
 
+  :resource-paths ["resources/"]
+
   :main fo.core
   :aot [fo.core]
   )

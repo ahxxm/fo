@@ -1,0 +1,212 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="description" content="看不懂佛曰，来这里参悟人生的真谛吧">
+    <meta name="keywords" content="与佛论禅,佛曰,加密,解密,佛曰翻译器,如是我闻">
+    <style type="text/css">
+        #mainframe
+        {
+            margin: 0px auto;
+            width: 800px;
+            overflow: hidden;
+            display: block;
+            font-size: 12px;
+        }
+        #orignalMsg, #afterMsg
+        {
+            width: 600px;
+            overflow-y: auto;
+            display: block;
+            resize: none;
+            margin: 0 100px;
+        }
+        #orignalMsg
+        {
+            height: 80px;
+        }
+        #afterMsg
+        {
+            height: 280px;
+        }
+        input.Btn
+        {
+            cursor: pointer;
+            padding: 5px;
+            font-size: 15px;
+        }
+        body, p, div.centerBlk
+        {
+            text-align: center;
+        }
+        p.title
+        {
+            font-size: 200%;
+            font-weight: bold;
+            font-family: 微软雅黑,黑体;
+            margin:15px;
+        }
+        p.helptext
+        {
+            text-align:left;
+            font-size: 15px;
+            line-height:1.5em;
+            text-indent: 2em;
+
+        }
+        textarea
+        {
+            padding: 5px;
+            font-size: 12px;
+            outline: none;
+            text-shadow: 0px 1px 0px #fff;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            -webkit-transition: .3s ease-in-out;
+            -moz-transition: .3s ease-in-out;
+            -o-transition: .3s ease-in-out;
+        }
+
+        textarea:focus
+        {
+            border: 1px solid #fafafa;
+            -webkit-box-shadow: 0px 0px 6px #007eff;
+            -moz-box-shadow: 0px 0px 5px #007eff;
+            box-shadow: 0px 0px 5px #007eff;
+        }
+        textarea::-webkit-input-placeholder
+        {
+            color: #999;
+            -webkit-transition: color.5s;
+        }
+        textarea:focus::-webkit-input-placeholder, textarea:hover::-webkit-input-placeholder
+        {
+            color: #c2c2c2;
+            -webkit-transition: color.5s;
+        }
+        .centerBlk
+        {
+            margin: 10px 0px;
+            float: left;
+            text-align: left;
+            padding: 0 100px;
+        }
+        #hintMsg
+        {
+            clear: both;
+        }
+        .helpBlk
+        {
+            float: right;
+            margin: 10px 0px;
+            padding: 0 100px;
+        }
+        .img
+        {
+            border: 0px;
+        }
+        .black_overlay
+        {
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.75;
+            opacity: .75;
+            filter: alpha(opacity=75);
+        }
+        .white_content
+        {
+            display: none;
+            padding: 10px;
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 632px;
+            height: 445px;
+            border: 2px solid #007eff;
+            border-radius: 8px;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+        }
+    </style>
+	<script language="javascript">
+		if(top != self){
+		top.location.href = "http://keyfc.net/bbs";
+	}
+	</script>
+    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+    <script type="text/javascript">
+        var foyu = ["命由己造，相由心生", "心不动，万物皆不动", "心不变，万物皆不变", "坐亦禅，行亦禅", "一花一世界，一叶一如来", "春来花自青，秋至叶飘零", "无穷般若心自在，语默动静体自然", "悠然，随心，随性，随缘", "刹那便是永恒", "无悲无喜无梦无幻，无爱无恨四大皆空", "不能了，不能悟，不能舍，不能弃", "参不透，舍不得 ", "不可说,不可说,一说即是错", "一念愚即般若绝，一念智即般若生 ", "菩提本无树，明镜亦非台", "本来无一物，何处惹尘埃", "一即一切，一切即一", "刹那便是永恒", "种如是因，收如是果，一切唯心造", "人无善恶，善恶存乎尔心"];
+        function Next(x) {
+            return Math.floor(Math.random() * x + 1) - 1;
+        }
+        $(document).ready(function () {
+            //$.get("tudou.aspx", function(data) { $("#afterMsg").html($(data).find("Message").text()); });
+            $("#tudouEncode").click(function () {
+                $.post("tudou.aspx", { "orignalMsg": encodeURIComponent($("#orignalMsg").val()), "action": "Encode" }, function (data) {
+                    $("#hintMsg").html(foyu[Next(foyu.length)]);
+                    $("#afterMsg").val($(data).find("Message").text());
+                });
+            });
+            $("#tudouDecode").click(function () {
+                $.post("tudou.aspx", { "orignalMsg": $("#afterMsg").val().replace(/\s/g, ""), "action": "Decode" }, function (data) {
+                    $("#hintMsg").html(foyu[Next(foyu.length)]);
+                    $("#orignalMsg").val($(data).find("Message").text()); //.replace(/\n/g, "<br />")
+                });
+            });
+            $("#tudouHelp").click(function () {
+                $("#light").css("display", "block");
+                $("#fade").css("display", "block");
+            });
+            $("#tudouClose").click(function () {
+                $("#light").css("display", "none");
+                $("#fade").css("display", "none");
+            });
+        });
+    </script>
+    <title>与佛论禅</title>
+    <!-- Created by lersh99 2010/01/13, modified by Roc-Dark 2011/10/17,modified by lersh99 2013/12/1 -->
+</head>
+<body>
+    <div id="mainframe">
+        <p class="title" id="FoTitle">
+            与佛论禅
+        </p>
+        <textarea id="orignalMsg" placeholder="施主，此次前来，不知有何贵干？" rows="5"></textarea>
+        <div class="centerBlk">
+            <input class="Btn" type="button" id="tudouEncode" value="听佛说宇宙的真谛">
+            <input class="Btn" type="button" id="tudouDecode" value="参悟佛所言的真意">
+        </div>
+        <div class="helpBlk">
+            <input class="Btn" type="button" id="tudouHelp" value="普度众生">
+        </div>
+        <p id="hintMsg">
+            面对这个纷繁复杂的世界，<br>
+            真米神会如何作答呢……</p>
+        <textarea id="afterMsg" placeholder="佛家妙语" rows="5"></textarea>
+        <p>
+            作者：<a href="http://weibo.com/selphy/" target="_blank">蓝色的风之精灵</a>；真米神表示对此工具的非法使用概不负责。<br>
+            由 <a href="/">KeyFansClub 我们的梦想</a> 提供，更多精彩不容错过！</p>
+    </div>
+    <div id="light" class="white_content">
+        <p class="title">
+            与佛论禅帮助
+        </p>
+        <p class="helptext">
+        将需要打码的文字输入在上面的文本框里，点击『听佛说宇宙的真谛』按钮，就能在下面得到打码后的文字。</p>
+        <p class="helptext">
+        将需要解码的文字输入在下面的文本框里，记得带上『佛曰：』或『如是我闻：』的文字，点击『参悟佛所言的真意』按钮，就能在上面的文本框里得到解码后的文字。</p>
+        <p class="helptext">
+        顺便说下，为什么有时候会出现『太深奥了，参悟不出佛经的真意……』的情况，那是因为某些深井冰的网站（百度说的就是你！），会将繁体字转换为简体字，这样你复制后的文字已经不是最初的原文了，所以解不出。本佛祖的代言人已经尽力的去尝试参悟了，可惜还是有部分被篡改的佛语无能为力，十分抱歉o(&gt;﹏&lt;)o</p>
+        <input class="Btn" type="button" id="tudouClose" value="然也">
+    </div>
+    <div id="fade" class="black_overlay">
+
+
+</div></body></html>
