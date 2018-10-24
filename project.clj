@@ -6,11 +6,15 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/core.async "0.4.474"]
 
+                 [com.taoensso/timbre "4.10.0"]
                  [compojure "1.6.1"]
                  [ring "1.7.0"]
                  [aleph "0.4.6"]]
 
   :resource-paths ["resources/"]
+  :ring {:auto-refresh? true :auto-reload? true
+         :reload-paths ["src"]
+         :refresh-paths ["resources/"]}
 
   :main fo.core
   :aot [fo.core]
