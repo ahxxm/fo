@@ -28,7 +28,6 @@
 
 (defn encode
   [req]
-  (info req)
   (let [body (:body req)]
     (if (nil? body)
       {:status 200 :body ""}
@@ -36,7 +35,6 @@
 
 (defn decode
   [req]
-  (info req)
   (let [body (:body req)]
     (if (nil? body)
       {:status 200 :body ""}
