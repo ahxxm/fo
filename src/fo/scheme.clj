@@ -29,7 +29,6 @@
             ))
 (def fochar->index (zipmap fochars (range)))
 
-
 (def test-iv "00000166a524fd31d9af5aa2")
 (def test-key "00000166a524fd31c6739e01fc255557db713f1e3bdd8d8b4a80bdee7ab586d7")
 ;; TODO: try initialize once to verify iv/key
