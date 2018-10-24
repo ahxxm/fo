@@ -61,7 +61,8 @@
     rsp))
 
 (defn fo-dec
-  ;; TODO: fo-decoding, decompress, decrypt
+  ;; fo-decoding, decrypt
   [i]
-  i
-  )
+  (let [indexes (map #(unchecked-byte (get fochar->index (str %))) (vec i))
+        raw (crypto/decrypt (byte-array indexes) key32 iv {:algorithm :aes256-gcm})]
+    (codecs/bytes->str raw)))

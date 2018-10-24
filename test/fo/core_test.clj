@@ -8,4 +8,5 @@
 
 (deftest fo-test
   (testing "enc and dec"
-    (is (= (fo-enc source) (vec expected)))))
+    (is (= (fo-enc source) (vec expected))
+        (= (fo-dec expected) source))))
