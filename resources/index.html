@@ -11,7 +11,7 @@
             display: block;
             font-size: 12px;
         }
-        #orignalMsg, #afterMsg
+        #origMsg, #afterMsg
         {
             width: 600px;
             overflow-y: auto;
@@ -19,7 +19,7 @@
             resize: none;
             margin: 0 100px;
         }
-        #orignalMsg
+        #origMsg
         {
             height: 80px;
         }
@@ -139,13 +139,13 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#tudouEncode").click(function () {
-                $.post("encode", { "orignalMsg": encodeURIComponent($("#orignalMsg").val()), "action": "Encode" }, function (data) {
-                    $("#afterMsg").val($(data).find("Message").text());
+                $.post("encode", $("#origMsg").val(), function (data) {
+                    $("#afterMsg").val(data);
                 });
             });
             $("#tudouDecode").click(function () {
-                $.post("decode", { "orignalMsg": $("#afterMsg").val().replace(/\s/g, ""), "action": "Decode" }, function (data) {
-                    $("#orignalMsg").val($(data).find("Message").text());
+                $.post("decode", $("#origMsg").val(), function (data) {
+                    $("#afterMsg").val(data);
                 });
             });
         });
@@ -157,7 +157,7 @@
         <p class="title" id="FoTitle">
             与佛论禅
         </p>
-        <textarea id="orignalMsg" placeholder="施主，此次前来，不知有何贵干？" rows="5"></textarea>
+        <textarea id="origMsg" placeholder="施主，此次前来，不知有何贵干？" rows="5"></textarea>
         <div class="centerBlk">
             <input class="Btn" type="button" id="tudouEncode" value="听佛说宇宙的真谛">
             <input class="Btn" type="button" id="tudouDecode" value="参悟佛所言的真意">

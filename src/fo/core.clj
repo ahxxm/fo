@@ -4,7 +4,7 @@
   (:require
    [taoensso.timbre :refer [refer-timbre]]
    [clojure.java.io :as jio]
-   [compojure.core :as compojure :refer [GET defroutes]]
+   [compojure.core :as compojure :refer [GET POST defroutes]]
    [compojure.route :as route]
    [ring.middleware.params :as params]
    [ring.middleware.reload :refer [wrap-reload]]
@@ -25,8 +25,28 @@
     (debug "no such page" req)
     rsp))
 
+(defn encode
+  [req]
+  (info req)
+  (let [body (:body req)]
+    ;; TODO: encryption here
+    (if (nil? body)
+      {:status 200 :body ""}
+      {:status 200 :body (slurp body)})))
+
+(defn decode
+  [req]
+  (info req)
+  (let [body (:body req)]
+    ;; TODO: decryption here
+    (if (nil? body)
+      {:status 200 :body ""}
+      {:status 200 :body (slurp body)})))
+
 (defroutes app
   (GET "/" [] home)
+  (POST "/encode" [] encode)
+  (POST "/decode" [] decode)
   (route/not-found not-found))
 
 (defn -main
