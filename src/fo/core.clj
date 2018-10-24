@@ -8,7 +8,8 @@
    [compojure.route :as route]
    [ring.middleware.params :as params]
    [ring.middleware.reload :refer [wrap-reload]]
-   [aleph.http :as http])
+   [aleph.http :as http]
+   [fo.scheme :as s])
   (:gen-class))
 
 (refer-timbre)
@@ -29,19 +30,17 @@
   [req]
   (info req)
   (let [body (:body req)]
-    ;; TODO: encryption here
     (if (nil? body)
       {:status 200 :body ""}
-      {:status 200 :body (slurp body)})))
+      {:status 200 :body (-> body slurp s/fo-enc)})))
 
 (defn decode
   [req]
   (info req)
   (let [body (:body req)]
-    ;; TODO: decryption here
     (if (nil? body)
       {:status 200 :body ""}
-      {:status 200 :body (slurp body)})))
+      {:status 200 :body (-> body slurp s/fo-dec)})))
 
 (defroutes app
   (GET "/" [] home)
@@ -50,8 +49,8 @@
   (route/not-found not-found))
 
 (defn -main
-  "I don't do a whole lot."
   []
   ;; TODO: read port from env
-  (info "start http server at 1000")
+  ;; TODO: core.typed
+  (info "start http server at 10000")
   (http/start-server (wrap-reload #'app) {:port 10000}))

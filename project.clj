@@ -7,6 +7,7 @@
                  [org.clojure/core.async "0.4.474"]
 
                  [com.taoensso/timbre "4.10.0"]
+                 [buddy/buddy-core "1.4.0"]
                  [compojure "1.6.1"]
                  [ring "1.7.0"]
                  [aleph "0.4.6"]]
