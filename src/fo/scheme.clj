@@ -29,10 +29,15 @@
             ))
 (def fochar->index (zipmap fochars (range)))
 
-;; TODO: reasonable keystore
-;; (def key (-> "key" jio/resource jio/reader slurp))
-(def iv (nonce/random-nonce 12))
-(def key32 (nonce/random-nonce 32))
+
+(def test-iv "00000166a524fd31d9af5aa2")
+(def test-key "00000166a524fd31c6739e01fc255557db713f1e3bdd8d8b4a80bdee7ab586d7")
+;; TODO: try initialize once to verify iv/key
+
+;; hex to byte
+(def iv (codecs/hex->bytes (or (-> "FO_IV" System/getenv) test-iv)))
+(def key32 (codecs/hex->bytes (or (-> "FO_KEY" System/getenv) test-key)))
+
 
 (defn foe
   ;; means fo-encoding: from byte-array to fo-encoded string
