@@ -53,4 +53,4 @@
   ;; TODO: core.typed
   (info "start http server at 10000")
   (let [local-bind (InetSocketAddress. "localhost" 10000)]
-    (http/start-server (wrap-reload #'app) {:socket-address local-bin})))
+    (http/start-server (wrap-reload #'app) {:socket-address local-bind})))
