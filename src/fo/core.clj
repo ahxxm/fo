@@ -1,6 +1,7 @@
 (ns fo.core
   (:import
-   [io.netty.handler.ssl SslContextBuilder])
+   [io.netty.handler.ssl SslContextBuilder]
+   [java.net InetSocketAddress])
   (:require
    [taoensso.timbre :refer [refer-timbre]]
    [clojure.java.io :as jio]
@@ -51,4 +52,5 @@
   ;; TODO: read port from env
   ;; TODO: core.typed
   (info "start http server at 10000")
-  (http/start-server (wrap-reload #'app) {:port 10000}))
+  (let [local-bind (InetSocketAddress. "localhost" 10000)]
+    (http/start-server (wrap-reload #'app) {:socket-address local-bin})))
