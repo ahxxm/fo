@@ -37,6 +37,12 @@
 (def iv (codecs/hex->bytes (or (-> "FO_IV" System/getenv) test-iv)))
 (def key32 (codecs/hex->bytes (or (-> "FO_KEY" System/getenv) test-key)))
 
+(defmacro safe-op
+  [& body]
+  `(try ~@body
+        (catch Exception e#
+          (warn "caught exception:" (.getMessage e#))
+          "佛不知道你在说什么")))
 
 (defn foe
   ;; means fo-encoding: from byte-array to fo-encoded string
@@ -55,14 +61,16 @@
 (defn fo-enc
   ;; encrypt, fo-encoding
   [i]
-  (let [data (codecs/str->bytes i)
-        raw (crypto/encrypt data key32 iv {:algorithm :aes256-gcm})
-        rsp (-> raw foe)]
-    rsp))
+  (safe-op
+   (let [data (codecs/str->bytes i)
+         raw (crypto/encrypt data key32 iv {:algorithm :aes256-gcm})
+         rsp (-> raw foe)]
+     rsp)))
 
 (defn fo-dec
   ;; fo-decoding, decrypt
   [i]
-  (let [indexes (map #(unchecked-byte (get fochar->index (str %))) (vec i))
-        raw (crypto/decrypt (byte-array indexes) key32 iv {:algorithm :aes256-gcm})]
-    (codecs/bytes->str raw)))
+  (safe-op
+   (let [indexes (map #(unchecked-byte (get fochar->index (str %))) (vec i))
+         raw (crypto/decrypt (byte-array indexes) key32 iv {:algorithm :aes256-gcm})]
+     (codecs/bytes->str raw))))
