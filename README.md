@@ -1,14 +1,11 @@
 # fo
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed to ... pass message.
 
 ## Usage
 
-FIXME
+[于佛论禅](https://fo.lolis.c)
 
 ## License
 
-Copyright © 2018 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+WTFPL
