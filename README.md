@@ -6,7 +6,7 @@ Credits: [code](https://github.com/lersh/TudouCode/blob/master/TudouSharp/Tudou.
 
 ## Usage
 
-[于佛论禅](https://fo.lolis.c)
+[与佛论禅](https://fo.lolis.cc)
 
 ## License
 
