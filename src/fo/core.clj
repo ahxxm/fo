@@ -7,7 +7,6 @@
    [clojure.java.io :as jio]
    [compojure.core :as compojure :refer [GET POST defroutes]]
    [compojure.route :as route]
-   [ring.middleware.params :as params]
    [ring.middleware.reload :refer [wrap-reload]]
    [aleph.http :as http]
    [fo.scheme :as s])
@@ -49,8 +48,6 @@
 
 (defn -main
   []
-  ;; TODO: read port from env
-  ;; TODO: core.typed
   (info "start http server at 10000")
   (let [local-bind (InetSocketAddress. "localhost" 10000)]
     (http/start-server (wrap-reload #'app) {:socket-address local-bind})))

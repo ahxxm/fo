@@ -1,13 +1,11 @@
 (ns fo.scheme
   (:require [clojure.java.io :as jio]
-            [taoensso.timbre :refer [refer-timbre]]
+            [taoensso.timbre :refer [warn]]
             [buddy.core.crypto :as crypto]
             [buddy.core.padding :as padding]
             [buddy.core.codecs :as codecs]
             [buddy.core.nonce :as nonce])
   )
-
-(refer-timbre)
 
 (def fochars (list
             "謹" "穆" "僧" "室" "藝" "瑟" "彌" "提" "蘇" "醯" "盧" "呼" "舍" "參" "沙" "伊"
@@ -28,7 +26,6 @@
             "殺" "放" "橋" "路" "矜" "寡" "拔" "困" "粟" "惜" "福" "排" "解" "紛" "捐" "資"
             ))
 (def fochar->index (zipmap fochars (range)))
-
 (def test-iv "00000166a524fd31d9af5aa2")
 (def test-key "00000166a524fd31c6739e01fc255557db713f1e3bdd8d8b4a80bdee7ab586d7")
 
@@ -57,7 +54,6 @@
         ;; for random access
         v (vec unsigned-vec)]
 
-    ;; (info "max min" (reduce max v) (reduce min v)))
     (mapcat #(nth fochars %) v)))
 
 (defn fo-enc
