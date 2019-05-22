@@ -48,6 +48,8 @@
 
 (defn -main
   []
-  (info "start http server at 10000")
-  (let [local-bind (InetSocketAddress. "localhost" 10000)]
-    (http/start-server (wrap-reload #'app) {:socket-address local-bind})))
+  (let [port (or (-> "PORT" System/getenv) 10000)
+        host (or (-> "FO_HOST" System/getenv) "localhost")]
+    (info "start http server at" host ":" port)
+    (let [bind (InetSocketAddress. host (Integer. port))]
+      (http/start-server (wrap-reload #'app) {:socket-address bind}))))
