@@ -8,7 +8,7 @@
                  [com.taoensso/timbre "4.10.0"]
                  [buddy/buddy-core "1.6.0"]
                  [compojure "1.6.1"]
-                 [ring "1.7.0"]
+                 [ring "1.8.0"]
                  [aleph "0.4.6"]]
 
   :resource-paths ["resources/"]
