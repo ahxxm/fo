@@ -5,10 +5,10 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.1"]
 
-                 [com.taoensso/timbre "5.1.0"]
-                 [buddy/buddy-core "1.6.0"]
+                 [com.taoensso/timbre "5.1.2"]
+                 [buddy/buddy-core "1.10.1"]
                  [compojure "1.6.2"]
-                 [ring "1.8.2"]
+                 [ring "1.9.3"]
                  [aleph "0.4.6"]]
 
   :resource-paths ["resources/"]
