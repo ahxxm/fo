@@ -14,7 +14,7 @@ processes = []
 
 [env]
   FO_HOST = "0.0.0.0"
-  FO_PORT = "8080"
+  PORT = "8080"
 
 [experimental]
   allowed_public_ports = []
