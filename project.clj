@@ -3,13 +3,13 @@
   :url "https://folol.herokuapp.com/"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.12.0"]
+  :dependencies [[org.clojure/clojure "1.12.1"]
 
-                 [com.taoensso/timbre "6.5.0"]
+                 [com.taoensso/timbre "6.7.1"]
                  [buddy/buddy-core "1.12.0-430"]
                  [compojure "1.7.1"]
-                 [ring "1.12.2"]
-                 [aleph "0.8.1"]]
+                 [ring "1.14.2"]
+                 [aleph "0.9.0"]]
 
   :resource-paths ["resources/"]
   :ring {:auto-refresh? true :auto-reload? true
