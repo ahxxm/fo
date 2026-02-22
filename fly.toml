@@ -6,7 +6,7 @@ swap_size_mb = 512
 processes = []
 
 [build]
-  image = "ahxxm/base:fo"
+  image = "ghcr.io/ahxxm/base:fo"
 
 [deploy]
   strategy = "bluegreen"
