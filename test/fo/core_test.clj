@@ -10,9 +10,17 @@
 (def expected "至豆友智三量濟僧舍伊千阿北灭兄念开親牟")
 
 (deftest fo-test
-  (testing "enc and dec"
-    (is (= (fo-enc source) (vec expected))
-        (= (fo-dec expected) source))))
+  (testing "backward compat with old static-IV encoded messages"
+    (is (= "123" (fo-dec expected)))))
+
+(deftest random-iv-test
+  (testing "random IV provides semantic security while preserving roundtrip"
+    (let [plaintext "hello world"
+          a (fo-enc plaintext)
+          b (fo-enc plaintext)]
+      (is (not= a b) "two encryptions should differ — static IV makes them identical")
+      (is (= plaintext (fo-dec a)) "first ciphertext should roundtrip")
+      (is (= plaintext (fo-dec b)) "second ciphertext should roundtrip"))))
 
 (deftest endpoint-test
   (let [server (http/start-server app {:port 0})

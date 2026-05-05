@@ -61,14 +61,22 @@
   [i]
   (safe-op
    (let [data (codecs/str->bytes i)
-         raw (crypto/encrypt data key32 iv {:algorithm :aes256-gcm})
-         rsp (-> raw foe)]
-     rsp)))
+         random-iv (nonce/random-bytes 12)
+         raw (crypto/encrypt data key32 random-iv {:algorithm :aes256-gcm})]
+     (-> (into (vec random-iv) raw)
+         foe))))
 
 (defn fo-dec
   ;; fo-decoding, decrypt
   [i]
   (safe-op
    (let [indexes (map #(unchecked-byte (get fochar->index (str %))) (vec i))
-         raw (crypto/decrypt (byte-array indexes) key32 iv {:algorithm :aes256-gcm})]
-     (codecs/bytes->str raw))))
+         [embedded-iv raw] (split-at 12 indexes)]
+     (try
+       (-> (crypto/decrypt (byte-array raw) key32 (byte-array embedded-iv)
+                           {:algorithm :aes256-gcm})
+           codecs/bytes->str)
+       (catch Exception _
+         (-> (crypto/decrypt (byte-array indexes) key32 iv
+                             {:algorithm :aes256-gcm})
+             codecs/bytes->str))))))
